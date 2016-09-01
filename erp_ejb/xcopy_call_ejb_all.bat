@@ -1,0 +1,14 @@
+call xcopy_ejb_all.bat cartera
+call xcopy_ejb_all.bat activosfijos
+call xcopy_ejb_all.bat cliente
+call xcopy_ejb_all.bat comisiones
+call xcopy_ejb_all.bat contabilidad
+call xcopy_ejb_all.bat facturacion
+call xcopy_ejb_all.bat importaciones
+call xcopy_ejb_all.bat inventario
+call xcopy_ejb_all.bat nomina
+call xcopy_ejb_all.bat seguridad
+call xcopy_ejb_all.bat sris
+call xcopy_ejb_all.bat tesoreria
+call xcopy_ejb_all.bat puntoventa
+call xcopy_ejb_all.bat produccion

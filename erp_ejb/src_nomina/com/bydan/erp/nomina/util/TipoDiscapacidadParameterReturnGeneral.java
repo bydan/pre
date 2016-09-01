@@ -1,0 +1,88 @@
+/*
+*AVISO LEGAL
+© Copyright
+*Este programa esta protegido por la ley de derechos de autor.
+*La reproduccion o distribucion ilicita de este programa o de cualquiera de
+*sus partes esta penado por la ley con severas sanciones civiles y penales,
+*y seran objeto de todas las sanciones legales que correspondan.
+
+*Su contenido no puede copiarse para fines comerciales o de otras,
+*ni puede mostrarse, incluso en una version modificada, en otros sitios Web.
+Solo esta permitido colocar hipervinculos al sitio web.
+*/
+package com.bydan.erp.nomina.util;
+
+import java.util.Set;
+import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
+import java.io.Serializable;
+import java.util.Date;
+import java.sql.Timestamp;
+
+import org.hibernate.validator.*;
+
+import com.bydan.framework.erp.business.entity.GeneralEntity;
+import com.bydan.framework.erp.business.entity.GeneralEntityParameterReturnGeneral;
+import com.bydan.framework.erp.business.entity.GeneralEntityReturnGeneral;
+import com.bydan.framework.erp.business.entity.Classe;
+import com.bydan.framework.erp.business.dataaccess.ConstantesSql;
+//import com.bydan.framework.erp.business.entity.Mensajes;
+import com.bydan.framework.erp.util.Constantes;
+import com.bydan.framework.erp.util.DeepLoadType;
+import com.bydan.erp.nomina.util.TipoDiscapacidadConstantesFunciones;
+
+import com.bydan.erp.nomina.business.entity.*;//TipoDiscapacidad
+
+
+import com.bydan.erp.seguridad.business.entity.*;
+
+
+@SuppressWarnings("unused")
+public class TipoDiscapacidadParameterReturnGeneral extends GeneralEntityParameterReturnGeneral implements Serializable {
+	private static final long serialVersionUID=1L;
+		
+	protected TipoDiscapacidad tipodiscapacidad;	
+	protected List<TipoDiscapacidad> tipodiscapacidads;
+	
+	
+	public List<Empresa> empresasForeignKey;
+	
+	public TipoDiscapacidadParameterReturnGeneral () throws Exception {						
+		super();
+		this.tipodiscapacidads= new ArrayList<TipoDiscapacidad>();
+		this.tipodiscapacidad= new TipoDiscapacidad();
+		
+		
+		this.empresasForeignKey=new ArrayList<Empresa>();
+	} 
+	
+	public TipoDiscapacidad getTipoDiscapacidad() throws Exception {	
+		return tipodiscapacidad;
+	}
+		
+	public void setTipoDiscapacidad(TipoDiscapacidad newTipoDiscapacidad) {
+		this.tipodiscapacidad = newTipoDiscapacidad;
+	}
+	
+	public List<TipoDiscapacidad> getTipoDiscapacidads() throws Exception {		
+		return tipodiscapacidads;
+	}
+	
+	public void setTipoDiscapacidads(List<TipoDiscapacidad> newTipoDiscapacidads) {
+		this.tipodiscapacidads = newTipoDiscapacidads;
+	}
+	
+	
+
+	public List<Empresa> getempresasForeignKey() {
+		return this.empresasForeignKey;
+	}
+	
+	
+
+	public void setempresasForeignKey(List<Empresa> empresasForeignKey) {
+		this.empresasForeignKey=empresasForeignKey;
+	}
+}
+

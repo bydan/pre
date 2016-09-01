@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="erp_ejb">
+        <wb-resource deploy-path="/" source-path="/ejbModule" tag="defaultRootSource"/>
+        <wb-resource deploy-path="/" source-path="/src_seguridad"/>
+        <wb-resource deploy-path="/" source-path="/src_nomina"/>
+        <wb-resource deploy-path="/" source-path="/src_comisiones"/>
+        <wb-resource deploy-path="/" source-path="/src_contabilidad"/>
+        <wb-resource deploy-path="/" source-path="/src_activosfijos"/>
+        <wb-resource deploy-path="/" source-path="/src_puntoventa"/>
+        <wb-resource deploy-path="/" source-path="/src_facturacion"/>
+        <wb-resource deploy-path="/" source-path="/src_tesoreria"/>
+        <wb-resource deploy-path="/" source-path="/src_produccion"/>
+        <wb-resource deploy-path="/" source-path="/src_cartera"/>
+        <wb-resource deploy-path="/" source-path="/src_inventario"/>
+        <wb-resource deploy-path="/" source-path="/src_importaciones"/>
+        <wb-resource deploy-path="/" source-path="/src_sris"/>
+        <property name="java-output-path" value="/erp_ejb/build/classes"/>
+    </wb-module>
+</project-modules>

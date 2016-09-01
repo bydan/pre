@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="ejbModule"/>
+	<classpathentry kind="src" path="src_sris"/>
+	<classpathentry kind="src" path="src_seguridad"/>
+	<classpathentry kind="src" path="src_nomina"/>
+	<classpathentry kind="src" path="src_comisiones"/>
+	<classpathentry kind="src" path="src_contabilidad"/>
+	<classpathentry kind="src" path="src_activosfijos"/>
+	<classpathentry kind="src" path="src_puntoventa"/>
+	<classpathentry kind="src" path="src_facturacion"/>
+	<classpathentry kind="src" path="src_tesoreria"/>
+	<classpathentry kind="src" path="src_produccion"/>
+	<classpathentry kind="src" path="src_cartera"/>
+	<classpathentry kind="src" path="src_inventario"/>
+	<classpathentry kind="src" path="src_importaciones"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ulJBoss5.1_minimal"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/ulJBoss5.1_persistence"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jasperreports/iText-2.1.0.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jasperreports/jasperreports-3.5.0.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jasperreports/jdt-compiler-3.1.1.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jasperreports/jfreechart-1.0.13.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jasperreports/poi-3.2-FINAL-20081019.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jsf/jboss/jsf-api.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jsf/jboss/jsf-impl.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jsf/jboss/jstl.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/log4j/jboss/log4j.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/mail/jboss/mail.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/mysql/mysql-connector-java-5.1.7-bin.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/mysql/postgresql-8.4-701.jdbc4.jar"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jmaki/org.json-0.0.2.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry combineaccessrules="false" kind="src" path="/seguridad_global"/>
+	<classpathentry kind="lib" path="/erp_ejb_resources/lib/jasperreports/jcommon-1.0.16.jar"/>
+	<classpathentry kind="output" path="build/classes"/>
+</classpath>

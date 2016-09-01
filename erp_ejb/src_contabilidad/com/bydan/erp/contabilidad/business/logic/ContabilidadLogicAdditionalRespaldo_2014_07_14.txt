@@ -1,0 +1,1638 @@
+/*
+*ADVERTENCIA : Este programa esta protegido por la ley de derechos de autor.
+*La reproducci?n o distribuci?n il?cita de este programa o de cualquiera de
+*sus partes esta penado por la ley con severas sanciones civiles y penales,
+*y ser?n objeto de todas las sanciones legales que correspondan.
+*/
+package com.bydan.erp.contabilidad.business.logic;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.apache.log4j.Logger;
+import java.sql.Timestamp;
+
+import java.io.InputStream;
+import java.util.Scanner;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
+import java.util.Date;
+//import java.util.ArrayList;
+
+import com.bydan.framework.erp.business.entity.GeneralEntity;
+import com.bydan.framework.erp.business.entity.GeneralEntityLogic;
+import com.bydan.framework.erp.business.entity.*;
+import com.bydan.framework.erp.business.entity.GeneralEntityParameterGeneral;
+import com.bydan.framework.erp.business.entity.DatoGeneral;
+import com.bydan.framework.erp.business.entity.Classe;
+import com.bydan.framework.erp.business.entity.Reporte;
+import com.bydan.framework.erp.util.ConstantesJsp;
+import com.bydan.framework.erp.business.dataaccess.ConstantesSql;
+
+
+import com.bydan.erp.contabilidad.util.ContabilidadConstantesFunciones;
+import com.bydan.erp.contabilidad.util.ContabilidadReturnGeneral;
+import com.bydan.erp.contabilidad.util.ContabilidadParameterGeneral;
+
+import com.bydan.framework.erp.business.logic.*;
+import com.bydan.framework.erp.util.FuncionesJsp;
+import com.bydan.framework.erp.business.logic.DatosCliente;
+import com.bydan.framework.erp.util.*;
+
+import com.bydan.erp.contabilidad.business.entity.*;
+
+//import com.bydan.framework.erp.util.*;
+//import com.bydan.framework.erp.business.logic.*;
+//import com.bydan.erp.contabilidad.business.dataaccess.*;
+//import com.bydan.erp.contabilidad.business.logic.*;
+//import java.sql.SQLException;
+
+//CONTROL_INCLUDE
+import com.bydan.erp.seguridad.business.entity.*;
+
+import com.bydan.erp.contabilidad.util.report.*;
+import com.bydan.erp.contabilidad.business.entity.report.*;
+import com.bydan.erp.contabilidad.business.logic.report.*;
+import com.bydan.erp.contabilidad.util.ContabilidadSql;
+import com.bydan.erp.contabilidad.util.ContabilidadSqlReporte;
+
+
+@SuppressWarnings("unused")
+final public class ContabilidadLogicAdditionalRespaldo_2014_07_14 extends ContabilidadLogic  {		
+	
+	public List<ComprobantesAnulados>comprobantesanuladoss= new ArrayList<ComprobantesAnulados>();
+	public List<DiarioGeneral>diariogenerals= new ArrayList<DiarioGeneral>();
+	public List<DiariosGenerales>diariosgeneraless= new ArrayList<DiariosGenerales>();
+	public List<EstadosFlujosCajas>estadosflujoscajass= new ArrayList<EstadosFlujosCajas>();
+	public List<EstadosResultadosPerdidasGanancias>estadosresultadosperdidasgananciass= new ArrayList<EstadosResultadosPerdidasGanancias>();
+	public List<ListadosCentrosActividades>listadoscentrosactividadess= new ArrayList<ListadosCentrosActividades>();
+	public List<ListadosCentrosCostos>listadoscentroscostoss= new ArrayList<ListadosCentrosCostos>();
+	public List<ListadosPlanCuentas>listadosplancuentass= new ArrayList<ListadosPlanCuentas>();
+	public List<MayooresGenerales>mayooresgeneraless= new ArrayList<MayooresGenerales>();
+	public List<ProcesoAsientoInicialEjercicio>procesoasientoinicialejercicios= new ArrayList<ProcesoAsientoInicialEjercicio>();
+	public List<ProcesoCierreEjercicioAnual>procesocierreejercicioanuals= new ArrayList<ProcesoCierreEjercicioAnual>();
+	public List<ProcesoCierrePeriodo>procesocierreperiodos= new ArrayList<ProcesoCierrePeriodo>();
+	public List<ProcesoMayorizarDiario>procesomayorizardiarios= new ArrayList<ProcesoMayorizarDiario>();
+	public List<ProcesoSincronizarSaldos>procesosincronizarsaldoss= new ArrayList<ProcesoSincronizarSaldos>();
+	public List<ProcesoTest>procesotests= new ArrayList<ProcesoTest>();
+	public List<ProcesoTotalizarSaldos>procesototalizarsaldoss= new ArrayList<ProcesoTotalizarSaldos>();
+	public List<ReporteTest>reportetests= new ArrayList<ReporteTest>();
+	public List<RetencionesPorPagarPorCuentas>retencionesporpagarporcuentass= new ArrayList<RetencionesPorPagarPorCuentas>();
+	public List<RetencionesPorPagarPorRetenciones>retencionesporpagarporretencioness= new ArrayList<RetencionesPorPagarPorRetenciones>();
+	public List<TotalSaldos>totalsaldoss= new ArrayList<TotalSaldos>();
+
+	public List<ComprobantesAnulados> getComprobantesAnuladoss() {
+		return this.comprobantesanuladoss;
+	}
+
+	public List<DiarioGeneral> getDiarioGenerals() {
+		return this.diariogenerals;
+	}
+
+	public List<DiariosGenerales> getDiariosGeneraless() {
+		return this.diariosgeneraless;
+	}
+
+	public List<EstadosFlujosCajas> getEstadosFlujosCajass() {
+		return this.estadosflujoscajass;
+	}
+
+	public List<EstadosResultadosPerdidasGanancias> getEstadosResultadosPerdidasGananciass() {
+		return this.estadosresultadosperdidasgananciass;
+	}
+
+	public List<ListadosCentrosActividades> getListadosCentrosActividadess() {
+		return this.listadoscentrosactividadess;
+	}
+
+	public List<ListadosCentrosCostos> getListadosCentrosCostoss() {
+		return this.listadoscentroscostoss;
+	}
+
+	public List<ListadosPlanCuentas> getListadosPlanCuentass() {
+		return this.listadosplancuentass;
+	}
+
+	public List<MayooresGenerales> getMayooresGeneraless() {
+		return this.mayooresgeneraless;
+	}
+
+	public List<ProcesoAsientoInicialEjercicio> getProcesoAsientoInicialEjercicios() {
+		return this.procesoasientoinicialejercicios;
+	}
+
+	public List<ProcesoCierreEjercicioAnual> getProcesoCierreEjercicioAnuals() {
+		return this.procesocierreejercicioanuals;
+	}
+
+	public List<ProcesoCierrePeriodo> getProcesoCierrePeriodos() {
+		return this.procesocierreperiodos;
+	}
+
+	public List<ProcesoMayorizarDiario> getProcesoMayorizarDiarios() {
+		return this.procesomayorizardiarios;
+	}
+
+	public List<ProcesoSincronizarSaldos> getProcesoSincronizarSaldoss() {
+		return this.procesosincronizarsaldoss;
+	}
+
+	public List<ProcesoTest> getProcesoTests() {
+		return this.procesotests;
+	}
+
+	public List<ProcesoTotalizarSaldos> getProcesoTotalizarSaldoss() {
+		return this.procesototalizarsaldoss;
+	}
+
+	public List<ReporteTest> getReporteTests() {
+		return this.reportetests;
+	}
+
+	public List<RetencionesPorPagarPorCuentas> getRetencionesPorPagarPorCuentass() {
+		return this.retencionesporpagarporcuentass;
+	}
+
+	public List<RetencionesPorPagarPorRetenciones> getRetencionesPorPagarPorRetencioness() {
+		return this.retencionesporpagarporretencioness;
+	}
+
+	public List<TotalSaldos> getTotalSaldoss() {
+		return this.totalsaldoss;
+	}
+
+	public void setComprobantesAnuladoss(List<ComprobantesAnulados> newComprobantesAnuladoss) {
+		this.comprobantesanuladoss = newComprobantesAnuladoss;
+	}
+
+	public void setDiarioGenerals(List<DiarioGeneral> newDiarioGenerals) {
+		this.diariogenerals = newDiarioGenerals;
+	}
+
+	public void setDiariosGeneraless(List<DiariosGenerales> newDiariosGeneraless) {
+		this.diariosgeneraless = newDiariosGeneraless;
+	}
+
+	public void setEstadosFlujosCajass(List<EstadosFlujosCajas> newEstadosFlujosCajass) {
+		this.estadosflujoscajass = newEstadosFlujosCajass;
+	}
+
+	public void setEstadosResultadosPerdidasGananciass(List<EstadosResultadosPerdidasGanancias> newEstadosResultadosPerdidasGananciass) {
+		this.estadosresultadosperdidasgananciass = newEstadosResultadosPerdidasGananciass;
+	}
+
+	public void setListadosCentrosActividadess(List<ListadosCentrosActividades> newListadosCentrosActividadess) {
+		this.listadoscentrosactividadess = newListadosCentrosActividadess;
+	}
+
+	public void setListadosCentrosCostoss(List<ListadosCentrosCostos> newListadosCentrosCostoss) {
+		this.listadoscentroscostoss = newListadosCentrosCostoss;
+	}
+
+	public void setListadosPlanCuentass(List<ListadosPlanCuentas> newListadosPlanCuentass) {
+		this.listadosplancuentass = newListadosPlanCuentass;
+	}
+
+	public void setMayooresGeneraless(List<MayooresGenerales> newMayooresGeneraless) {
+		this.mayooresgeneraless = newMayooresGeneraless;
+	}
+
+	public void setProcesoAsientoInicialEjercicios(List<ProcesoAsientoInicialEjercicio> newProcesoAsientoInicialEjercicios) {
+		this.procesoasientoinicialejercicios = newProcesoAsientoInicialEjercicios;
+	}
+
+	public void setProcesoCierreEjercicioAnuals(List<ProcesoCierreEjercicioAnual> newProcesoCierreEjercicioAnuals) {
+		this.procesocierreejercicioanuals = newProcesoCierreEjercicioAnuals;
+	}
+
+	public void setProcesoCierrePeriodos(List<ProcesoCierrePeriodo> newProcesoCierrePeriodos) {
+		this.procesocierreperiodos = newProcesoCierrePeriodos;
+	}
+
+	public void setProcesoMayorizarDiarios(List<ProcesoMayorizarDiario> newProcesoMayorizarDiarios) {
+		this.procesomayorizardiarios = newProcesoMayorizarDiarios;
+	}
+
+	public void setProcesoSincronizarSaldoss(List<ProcesoSincronizarSaldos> newProcesoSincronizarSaldoss) {
+		this.procesosincronizarsaldoss = newProcesoSincronizarSaldoss;
+	}
+
+	public void setProcesoTests(List<ProcesoTest> newProcesoTests) {
+		this.procesotests = newProcesoTests;
+	}
+
+	public void setProcesoTotalizarSaldoss(List<ProcesoTotalizarSaldos> newProcesoTotalizarSaldoss) {
+		this.procesototalizarsaldoss = newProcesoTotalizarSaldoss;
+	}
+
+	public void setReporteTests(List<ReporteTest> newReporteTests) {
+		this.reportetests = newReporteTests;
+	}
+
+	public void setRetencionesPorPagarPorCuentass(List<RetencionesPorPagarPorCuentas> newRetencionesPorPagarPorCuentass) {
+		this.retencionesporpagarporcuentass = newRetencionesPorPagarPorCuentass;
+	}
+
+	public void setRetencionesPorPagarPorRetencioness(List<RetencionesPorPagarPorRetenciones> newRetencionesPorPagarPorRetencioness) {
+		this.retencionesporpagarporretencioness = newRetencionesPorPagarPorRetencioness;
+	}
+
+	public void setTotalSaldoss(List<TotalSaldos> newTotalSaldoss) {
+		this.totalsaldoss = newTotalSaldoss;
+	}
+	public void getComprobantesAnuladossBusquedaComprobantesAnuladosWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_tipo_documento,Long id_tipo_movimiento,String numero_mayor,Date fecha_emision_desde,Date fecha_emision_hasta)throws Exception {
+		try {
+			ComprobantesAnuladosLogic comprobantesanuladosLogic=new ComprobantesAnuladosLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			comprobantesanuladosLogic.setConnexion(this.connexion);comprobantesanuladosLogic.setConnexionType(this.connexionType);comprobantesanuladosLogic.setParameterDbType(this.parameterDbType);comprobantesanuladosLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlComprobantesAnulados(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_tipo_documento,id_tipo_movimiento,numero_mayor,fecha_emision_desde,fecha_emision_hasta);
+
+			comprobantesanuladosLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.comprobantesanuladoss=comprobantesanuladosLogic.getComprobantesAnuladoss();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getDiarioGeneralsBusquedaReporteWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_periodo,Long id_modulo,Long id_tipo_movimiento,Long id_tipo_documento,Date fecha_inicio,Date fecha_fin)throws Exception {
+		try {
+			DiarioGeneralLogic diariogeneralLogic=new DiarioGeneralLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			diariogeneralLogic.setConnexion(this.connexion);diariogeneralLogic.setConnexionType(this.connexionType);diariogeneralLogic.setParameterDbType(this.parameterDbType);diariogeneralLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlDiarioGeneralBusquedaReporte(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_periodo,id_modulo,id_tipo_movimiento,id_tipo_documento,fecha_inicio,fecha_fin);
+
+			diariogeneralLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.diariogenerals=diariogeneralLogic.getDiarioGenerals();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getDiariosGeneralessBusquedaDiariosGeneralesWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_tipo_movimiento,Date fecha_emision_desde,Date fecha_emision_hasta)throws Exception {
+		try {
+			DiariosGeneralesLogic diariosgeneralesLogic=new DiariosGeneralesLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			diariosgeneralesLogic.setConnexion(this.connexion);diariosgeneralesLogic.setConnexionType(this.connexionType);diariosgeneralesLogic.setParameterDbType(this.parameterDbType);diariosgeneralesLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlDiariosGenerales(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_tipo_movimiento,fecha_emision_desde,fecha_emision_hasta);
+
+			diariosgeneralesLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.diariosgeneraless=diariosgeneralesLogic.getDiariosGeneraless();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getEstadosFlujosCajassBusquedaEstadosFlujosCajasWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_periodo,Long id_centro_actividad)throws Exception {
+		try {
+			EstadosFlujosCajasLogic estadosflujoscajasLogic=new EstadosFlujosCajasLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			estadosflujoscajasLogic.setConnexion(this.connexion);estadosflujoscajasLogic.setConnexionType(this.connexionType);estadosflujoscajasLogic.setParameterDbType(this.parameterDbType);estadosflujoscajasLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlEstadosFlujosCajas(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_periodo,id_centro_actividad);
+
+			estadosflujoscajasLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.estadosflujoscajass=estadosflujoscajasLogic.getEstadosFlujosCajass();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getEstadosResultadosPerdidasGananciassBusquedaEstadosResultadosPerdidasGananciasWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_nivel_cuenta,Long id_ejercicio,Long id_periodo)throws Exception {
+		try {
+			EstadosResultadosPerdidasGananciasLogic estadosresultadosperdidasgananciasLogic=new EstadosResultadosPerdidasGananciasLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			estadosresultadosperdidasgananciasLogic.setConnexion(this.connexion);estadosresultadosperdidasgananciasLogic.setConnexionType(this.connexionType);estadosresultadosperdidasgananciasLogic.setParameterDbType(this.parameterDbType);estadosresultadosperdidasgananciasLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlEstadosResultadosPerdidasGanancias(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_nivel_cuenta,id_ejercicio,id_periodo);
+
+			estadosresultadosperdidasgananciasLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.estadosresultadosperdidasgananciass=estadosresultadosperdidasgananciasLogic.getEstadosResultadosPerdidasGananciass();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getListadosCentrosActividadessBusquedaListadosCentrosActividadesWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id)throws Exception {
+		try {
+			ListadosCentrosActividadesLogic listadoscentrosactividadesLogic=new ListadosCentrosActividadesLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			listadoscentrosactividadesLogic.setConnexion(this.connexion);listadoscentrosactividadesLogic.setConnexionType(this.connexionType);listadoscentrosactividadesLogic.setParameterDbType(this.parameterDbType);listadoscentrosactividadesLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlListadosCentrosActividades(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id);
+
+			listadoscentrosactividadesLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.listadoscentrosactividadess=listadoscentrosactividadesLogic.getListadosCentrosActividadess();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getListadosCentrosCostossBusquedaListadosCentrosCostosWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id)throws Exception {
+		try {
+			ListadosCentrosCostosLogic listadoscentroscostosLogic=new ListadosCentrosCostosLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			listadoscentroscostosLogic.setConnexion(this.connexion);listadoscentroscostosLogic.setConnexionType(this.connexionType);listadoscentroscostosLogic.setParameterDbType(this.parameterDbType);listadoscentroscostosLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlListadosCentrosCostos(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id);
+
+			listadoscentroscostosLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.listadoscentroscostoss=listadoscentroscostosLogic.getListadosCentrosCostoss();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getListadosPlanCuentassBusquedaListadosPlanCuentasWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id)throws Exception {
+		try {
+			ListadosPlanCuentasLogic listadosplancuentasLogic=new ListadosPlanCuentasLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			listadosplancuentasLogic.setConnexion(this.connexion);listadosplancuentasLogic.setConnexionType(this.connexionType);listadosplancuentasLogic.setParameterDbType(this.parameterDbType);listadosplancuentasLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlListadosPlanCuentas(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id);
+
+			listadosplancuentasLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.listadosplancuentass=listadosplancuentasLogic.getListadosPlanCuentass();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getMayooresGeneralessBusquedaMayooresGeneralesWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_cuenta_contable,Date fecha_emision_desde,Date fecha_emision_hasta)throws Exception {
+		try {
+			MayooresGeneralesLogic mayooresgeneralesLogic=new MayooresGeneralesLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			mayooresgeneralesLogic.setConnexion(this.connexion);mayooresgeneralesLogic.setConnexionType(this.connexionType);mayooresgeneralesLogic.setParameterDbType(this.parameterDbType);mayooresgeneralesLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlMayooresGenerales(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_cuenta_contable,fecha_emision_desde,fecha_emision_hasta);
+
+			mayooresgeneralesLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.mayooresgeneraless=mayooresgeneralesLogic.getMayooresGeneraless();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getProcesoAsientoInicialEjerciciosBusquedaProcesoAsientoInicialEjercicioWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_tipo_documento,Date fecha_inicio,Date fecha_fin)throws Exception {
+		try {
+			ProcesoAsientoInicialEjercicioLogicAdditional procesoasientoinicialejercicioLogicAdditional=new ProcesoAsientoInicialEjercicioLogicAdditional();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			procesoasientoinicialejercicioLogicAdditional.setConnexion(this.connexion);procesoasientoinicialejercicioLogicAdditional.setConnexionType(this.connexionType);procesoasientoinicialejercicioLogicAdditional.setParameterDbType(this.parameterDbType);procesoasientoinicialejercicioLogicAdditional.setEntityManagerFactory(this.entityManagerFactory);
+
+			procesoasientoinicialejercicioLogicAdditional.BusquedaProcesoAsientoInicialEjercicio(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_tipo_documento,fecha_inicio,fecha_fin);
+
+			//this.procesoasientoinicialejercicios=procesoasientoinicialejercicioLogicAdditional.getProcesoAsientoInicialEjercicios();
+
+			GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+
+			generalEntityReturnGeneral=ProcesoAsientoInicialEjercicioLogicAdditional.ProcesarInformacionProcesoAsientoInicialEjercicio(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesoasientoinicialejercicioLogicAdditional,this.procesoasientoinicialejercicios,new GeneralEntityParameterGeneral(),generalEntityReturnGeneral,"BusquedaProcesoAsientoInicialEjercicio",id_tipo_documento,fecha_inicio,fecha_fin);
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getProcesoCierreEjercicioAnualsBusquedaProcesoCierreEjercicioAnualWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_tipo_documento,Date fecha)throws Exception {
+		try {
+			ProcesoCierreEjercicioAnualLogicAdditional procesocierreejercicioanualLogicAdditional=new ProcesoCierreEjercicioAnualLogicAdditional();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			procesocierreejercicioanualLogicAdditional.setConnexion(this.connexion);procesocierreejercicioanualLogicAdditional.setConnexionType(this.connexionType);procesocierreejercicioanualLogicAdditional.setParameterDbType(this.parameterDbType);procesocierreejercicioanualLogicAdditional.setEntityManagerFactory(this.entityManagerFactory);
+
+			procesocierreejercicioanualLogicAdditional.BusquedaProcesoCierreEjercicioAnual(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_tipo_documento,fecha);
+
+			//this.procesocierreejercicioanuals=procesocierreejercicioanualLogicAdditional.getProcesoCierreEjercicioAnuals();
+
+			GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+
+			generalEntityReturnGeneral=ProcesoCierreEjercicioAnualLogicAdditional.ProcesarInformacionProcesoCierreEjercicioAnual(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesocierreejercicioanualLogicAdditional,this.procesocierreejercicioanuals,new GeneralEntityParameterGeneral(),generalEntityReturnGeneral,"BusquedaProcesoCierreEjercicioAnual",id_tipo_documento,fecha);
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getProcesoCierrePeriodosBusquedaPorIdEjercicioPorIdPeriodoPorEstadoWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_periodo,Long id_estado_periodo)throws Exception {
+		try {
+			ProcesoCierrePeriodoLogic procesocierreperiodoLogic=new ProcesoCierrePeriodoLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			procesocierreperiodoLogic.setConnexion(this.connexion);procesocierreperiodoLogic.setConnexionType(this.connexionType);procesocierreperiodoLogic.setParameterDbType(this.parameterDbType);procesocierreperiodoLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			//sQuerySelect=ContabilidadSqlReporte.GetSelecSqlProcesoCierrePeriodoBusquedaPorIdEjercicioPorIdPeriodoPorEstado(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_periodo,id_estado_periodo);
+
+			//procesocierreperiodoLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			//this.procesocierreperiodos=procesocierreperiodoLogic.getProcesoCierrePeriodos();
+
+			GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+
+			generalEntityReturnGeneral=ProcesoCierrePeriodoLogicAdditional.ProcesarInformacionProcesoCierrePeriodo(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesocierreperiodoLogic,this.procesocierreperiodos,new GeneralEntityParameterGeneral(),generalEntityReturnGeneral,"BusquedaPorIdEjercicioPorIdPeriodoPorEstado",id_ejercicio,id_periodo,id_estado_periodo);
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getProcesoMayorizarDiariosBusquedaProcesoMayorizarDiarioWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,String codigo,Long id_tipo_movimiento,Date fecha_inicio,Date fecha_fin)throws Exception {
+		try {
+			ProcesoMayorizarDiarioLogic procesomayorizardiarioLogic=new ProcesoMayorizarDiarioLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			procesomayorizardiarioLogic.setConnexion(this.connexion);procesomayorizardiarioLogic.setConnexionType(this.connexionType);procesomayorizardiarioLogic.setParameterDbType(this.parameterDbType);procesomayorizardiarioLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			//sQuerySelect=ContabilidadSqlReporte.GetSelecSqlProcesoMayorizarDiario(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,codigo,id_tipo_movimiento,fecha_inicio,fecha_fin);
+
+			//procesomayorizardiarioLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			//this.procesomayorizardiarios=procesomayorizardiarioLogic.getProcesoMayorizarDiarios();
+
+			GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+
+			generalEntityReturnGeneral=ProcesoMayorizarDiarioLogicAdditional.ProcesarInformacionProcesoMayorizarDiario(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesomayorizardiarioLogic,this.procesomayorizardiarios,new GeneralEntityParameterGeneral(),generalEntityReturnGeneral,"BusquedaProcesoMayorizarDiario",codigo,id_tipo_movimiento,fecha_inicio,fecha_fin);
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getProcesoSincronizarSaldossBusquedaProcesoSincronizarSaldosWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_periodo)throws Exception {
+		try {
+			ProcesoSincronizarSaldosLogic procesosincronizarsaldosLogic=new ProcesoSincronizarSaldosLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			procesosincronizarsaldosLogic.setConnexion(this.connexion);procesosincronizarsaldosLogic.setConnexionType(this.connexionType);procesosincronizarsaldosLogic.setParameterDbType(this.parameterDbType);procesosincronizarsaldosLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			//sQuerySelect=ContabilidadSqlReporte.GetSelecSqlProcesoSincronizarSaldos(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_periodo);
+
+			//procesosincronizarsaldosLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			//this.procesosincronizarsaldoss=procesosincronizarsaldosLogic.getProcesoSincronizarSaldoss();
+
+			GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+
+			generalEntityReturnGeneral=ProcesoSincronizarSaldosLogicAdditional.ProcesarInformacionProcesoSincronizarSaldos(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesosincronizarsaldosLogic,this.procesosincronizarsaldoss,new GeneralEntityParameterGeneral(),generalEntityReturnGeneral,"BusquedaProcesoSincronizarSaldos",id_ejercicio,id_periodo);
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getProcesoTestsBusquedaPorIdEmpresaPorIdModuloWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_empresa,Long id_modulo,String nombre)throws Exception {
+		try {
+			ProcesoTestLogic procesotestLogic=new ProcesoTestLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			procesotestLogic.setConnexion(this.connexion);procesotestLogic.setConnexionType(this.connexionType);procesotestLogic.setParameterDbType(this.parameterDbType);procesotestLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			//sQuerySelect=ContabilidadSqlReporte.GetSelecSqlProcesoTestBusquedaPorIdEmpresaPorIdModulo(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_empresa,id_modulo,nombre);
+
+			//procesotestLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			//this.procesotests=procesotestLogic.getProcesoTests();
+
+			GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+
+			generalEntityReturnGeneral=ProcesoTestLogicAdditional.ProcesarInformacionProcesoTest(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesotestLogic,this.procesotests,new GeneralEntityParameterGeneral(),generalEntityReturnGeneral,"BusquedaPorIdEmpresaPorIdModulo",id_empresa,id_modulo,nombre);
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getProcesoTotalizarSaldossBusquedaPorEjercicioPorPeriodoWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_periodo)throws Exception {
+		try {
+			ProcesoTotalizarSaldosLogic procesototalizarsaldosLogic=new ProcesoTotalizarSaldosLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			procesototalizarsaldosLogic.setConnexion(this.connexion);procesototalizarsaldosLogic.setConnexionType(this.connexionType);procesototalizarsaldosLogic.setParameterDbType(this.parameterDbType);procesototalizarsaldosLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			//sQuerySelect=ContabilidadSqlReporte.GetSelecSqlProcesoTotalizarSaldosBusquedaPorEjercicioPorPeriodo(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_periodo);
+
+			//procesototalizarsaldosLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			//this.procesototalizarsaldoss=procesototalizarsaldosLogic.getProcesoTotalizarSaldoss();
+
+			GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+
+			generalEntityReturnGeneral=ProcesoTotalizarSaldosLogicAdditional.ProcesarInformacionProcesoTotalizarSaldos(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesototalizarsaldosLogic,this.procesototalizarsaldoss,new GeneralEntityParameterGeneral(),generalEntityReturnGeneral,"BusquedaPorEjercicioPorPeriodo",id_ejercicio,id_periodo);
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getReporteTestsBusquedaReporteTestWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_empresa,Long id_modulo,String nombre,String ubicacion)throws Exception {
+		try {
+			ReporteTestLogic reportetestLogic=new ReporteTestLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			reportetestLogic.setConnexion(this.connexion);reportetestLogic.setConnexionType(this.connexionType);reportetestLogic.setParameterDbType(this.parameterDbType);reportetestLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlReporteTest(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_empresa,id_modulo,nombre,ubicacion);
+
+			reportetestLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.reportetests=reportetestLogic.getReporteTests();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getRetencionesPorPagarPorCuentassBusquedaRetencionesPorPagarPorCuentasWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_periodo,Long id_tipo_retencion,Boolean es_debito)throws Exception {
+		try {
+			RetencionesPorPagarPorCuentasLogic retencionesporpagarporcuentasLogic=new RetencionesPorPagarPorCuentasLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			retencionesporpagarporcuentasLogic.setConnexion(this.connexion);retencionesporpagarporcuentasLogic.setConnexionType(this.connexionType);retencionesporpagarporcuentasLogic.setParameterDbType(this.parameterDbType);retencionesporpagarporcuentasLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlRetencionesPorPagarPorCuentas(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_periodo,id_tipo_retencion,es_debito);
+
+			retencionesporpagarporcuentasLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.retencionesporpagarporcuentass=retencionesporpagarporcuentasLogic.getRetencionesPorPagarPorCuentass();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getRetencionesPorPagarPorRetencionessBusquedaRetencionesPorPagarPorRetencionesWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_ejercicio,Long id_periodo,Boolean es_debito)throws Exception {
+		try {
+			RetencionesPorPagarPorRetencionesLogic retencionesporpagarporretencionesLogic=new RetencionesPorPagarPorRetencionesLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			retencionesporpagarporretencionesLogic.setConnexion(this.connexion);retencionesporpagarporretencionesLogic.setConnexionType(this.connexionType);retencionesporpagarporretencionesLogic.setParameterDbType(this.parameterDbType);retencionesporpagarporretencionesLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlRetencionesPorPagarPorRetenciones(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_ejercicio,id_periodo,es_debito);
+
+			retencionesporpagarporretencionesLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.retencionesporpagarporretencioness=retencionesporpagarporretencionesLogic.getRetencionesPorPagarPorRetencioness();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public void getTotalSaldossFK_IdCuentaContableWithConnection(String sFinalQuery,Pagination pagination,ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,Long id_cuenta_contable)throws Exception {
+		try {
+			TotalSaldosLogic totalsaldosLogic=new TotalSaldosLogic();
+
+			this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);this.connexion.begin();
+			totalsaldosLogic.setConnexion(this.connexion);totalsaldosLogic.setConnexionType(this.connexionType);totalsaldosLogic.setParameterDbType(this.parameterDbType);totalsaldosLogic.setEntityManagerFactory(this.entityManagerFactory);
+
+			String sQuerySelect="";
+			String sFinalQueryFinal="";
+			sQuerySelect=ContabilidadSqlReporte.GetSelecSqlTotalSaldosFK_IdCuentaContable(this.connexion,this.connexionType,this.parameterDbType,sFinalQuery,pagination,parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,id_cuenta_contable);
+
+			totalsaldosLogic.getEntities(sQuerySelect, sFinalQueryFinal);
+
+			this.totalsaldoss=totalsaldosLogic.getTotalSaldoss();
+
+			this.connexion.commit();
+		} catch(Exception e) {
+			this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+
+	public ComprobantesAnuladosParameterReturnGeneral procesarAccionComprobantesAnuladoss(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ComprobantesAnulados> comprobantesanuladoss,ComprobantesAnuladosParameterGeneral comprobantesanuladosParameterGeneral)throws Exception {
+		try {
+			ComprobantesAnuladosParameterReturnGeneral comprobantesanuladosReturnGeneral=new ComprobantesAnuladosParameterReturnGeneral();
+			comprobantesanuladosReturnGeneral=(ComprobantesAnuladosParameterReturnGeneral)ComprobantesAnuladosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,comprobantesanuladoss,comprobantesanuladosParameterGeneral,comprobantesanuladosReturnGeneral);
+			return comprobantesanuladosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ComprobantesAnuladosParameterReturnGeneral procesarAccionComprobantesAnuladossWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ComprobantesAnulados> comprobantesanuladoss,ComprobantesAnuladosParameterGeneral comprobantesanuladosParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ComprobantesAnuladosParameterReturnGeneral comprobantesanuladosReturnGeneral=new ComprobantesAnuladosParameterReturnGeneral();
+			comprobantesanuladosReturnGeneral=(ComprobantesAnuladosParameterReturnGeneral)ComprobantesAnuladosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,comprobantesanuladoss,comprobantesanuladosParameterGeneral,comprobantesanuladosReturnGeneral);
+			this.connexion.commit();
+			return comprobantesanuladosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public DiarioGeneralParameterReturnGeneral procesarAccionDiarioGenerals(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<DiarioGeneral> diariogenerals,DiarioGeneralParameterGeneral diariogeneralParameterGeneral)throws Exception {
+		try {
+			DiarioGeneralParameterReturnGeneral diariogeneralReturnGeneral=new DiarioGeneralParameterReturnGeneral();
+			diariogeneralReturnGeneral=(DiarioGeneralParameterReturnGeneral)DiarioGeneralLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,diariogenerals,diariogeneralParameterGeneral,diariogeneralReturnGeneral);
+			return diariogeneralReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public DiarioGeneralParameterReturnGeneral procesarAccionDiarioGeneralsWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<DiarioGeneral> diariogenerals,DiarioGeneralParameterGeneral diariogeneralParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			DiarioGeneralParameterReturnGeneral diariogeneralReturnGeneral=new DiarioGeneralParameterReturnGeneral();
+			diariogeneralReturnGeneral=(DiarioGeneralParameterReturnGeneral)DiarioGeneralLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,diariogenerals,diariogeneralParameterGeneral,diariogeneralReturnGeneral);
+			this.connexion.commit();
+			return diariogeneralReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public DiariosGeneralesReturnGeneral procesarAccionDiariosGeneraless(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<DiariosGenerales> diariosgeneraless,DiariosGeneralesParameterGeneral diariosgeneralesParameterGeneral)throws Exception {
+		try {
+			DiariosGeneralesReturnGeneral diariosgeneralesReturnGeneral=new DiariosGeneralesReturnGeneral();
+			diariosgeneralesReturnGeneral=(DiariosGeneralesReturnGeneral)DiariosGeneralesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,diariosgeneraless,diariosgeneralesParameterGeneral,diariosgeneralesReturnGeneral);
+			return diariosgeneralesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public DiariosGeneralesReturnGeneral procesarAccionDiariosGeneralessWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<DiariosGenerales> diariosgeneraless,DiariosGeneralesParameterGeneral diariosgeneralesParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			DiariosGeneralesReturnGeneral diariosgeneralesReturnGeneral=new DiariosGeneralesReturnGeneral();
+			diariosgeneralesReturnGeneral=(DiariosGeneralesReturnGeneral)DiariosGeneralesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,diariosgeneraless,diariosgeneralesParameterGeneral,diariosgeneralesReturnGeneral);
+			this.connexion.commit();
+			return diariosgeneralesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public EstadosFlujosCajasReturnGeneral procesarAccionEstadosFlujosCajass(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<EstadosFlujosCajas> estadosflujoscajass,EstadosFlujosCajasParameterGeneral estadosflujoscajasParameterGeneral)throws Exception {
+		try {
+			EstadosFlujosCajasReturnGeneral estadosflujoscajasReturnGeneral=new EstadosFlujosCajasReturnGeneral();
+			estadosflujoscajasReturnGeneral=(EstadosFlujosCajasReturnGeneral)EstadosFlujosCajasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,estadosflujoscajass,estadosflujoscajasParameterGeneral,estadosflujoscajasReturnGeneral);
+			return estadosflujoscajasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public EstadosFlujosCajasReturnGeneral procesarAccionEstadosFlujosCajassWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<EstadosFlujosCajas> estadosflujoscajass,EstadosFlujosCajasParameterGeneral estadosflujoscajasParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			EstadosFlujosCajasReturnGeneral estadosflujoscajasReturnGeneral=new EstadosFlujosCajasReturnGeneral();
+			estadosflujoscajasReturnGeneral=(EstadosFlujosCajasReturnGeneral)EstadosFlujosCajasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,estadosflujoscajass,estadosflujoscajasParameterGeneral,estadosflujoscajasReturnGeneral);
+			this.connexion.commit();
+			return estadosflujoscajasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public EstadosResultadosPerdidasGananciasReturnGeneral procesarAccionEstadosResultadosPerdidasGananciass(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<EstadosResultadosPerdidasGanancias> estadosresultadosperdidasgananciass,EstadosResultadosPerdidasGananciasParameterGeneral estadosresultadosperdidasgananciasParameterGeneral)throws Exception {
+		try {
+			EstadosResultadosPerdidasGananciasReturnGeneral estadosresultadosperdidasgananciasReturnGeneral=new EstadosResultadosPerdidasGananciasReturnGeneral();
+			estadosresultadosperdidasgananciasReturnGeneral=(EstadosResultadosPerdidasGananciasReturnGeneral)EstadosResultadosPerdidasGananciasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,estadosresultadosperdidasgananciass,estadosresultadosperdidasgananciasParameterGeneral,estadosresultadosperdidasgananciasReturnGeneral);
+			return estadosresultadosperdidasgananciasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public EstadosResultadosPerdidasGananciasReturnGeneral procesarAccionEstadosResultadosPerdidasGananciassWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<EstadosResultadosPerdidasGanancias> estadosresultadosperdidasgananciass,EstadosResultadosPerdidasGananciasParameterGeneral estadosresultadosperdidasgananciasParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			EstadosResultadosPerdidasGananciasReturnGeneral estadosresultadosperdidasgananciasReturnGeneral=new EstadosResultadosPerdidasGananciasReturnGeneral();
+			estadosresultadosperdidasgananciasReturnGeneral=(EstadosResultadosPerdidasGananciasReturnGeneral)EstadosResultadosPerdidasGananciasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,estadosresultadosperdidasgananciass,estadosresultadosperdidasgananciasParameterGeneral,estadosresultadosperdidasgananciasReturnGeneral);
+			this.connexion.commit();
+			return estadosresultadosperdidasgananciasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ListadosCentrosActividadesReturnGeneral procesarAccionListadosCentrosActividadess(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ListadosCentrosActividades> listadoscentrosactividadess,ListadosCentrosActividadesParameterGeneral listadoscentrosactividadesParameterGeneral)throws Exception {
+		try {
+			ListadosCentrosActividadesReturnGeneral listadoscentrosactividadesReturnGeneral=new ListadosCentrosActividadesReturnGeneral();
+			listadoscentrosactividadesReturnGeneral=(ListadosCentrosActividadesReturnGeneral)ListadosCentrosActividadesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,listadoscentrosactividadess,listadoscentrosactividadesParameterGeneral,listadoscentrosactividadesReturnGeneral);
+			return listadoscentrosactividadesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ListadosCentrosActividadesReturnGeneral procesarAccionListadosCentrosActividadessWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ListadosCentrosActividades> listadoscentrosactividadess,ListadosCentrosActividadesParameterGeneral listadoscentrosactividadesParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ListadosCentrosActividadesReturnGeneral listadoscentrosactividadesReturnGeneral=new ListadosCentrosActividadesReturnGeneral();
+			listadoscentrosactividadesReturnGeneral=(ListadosCentrosActividadesReturnGeneral)ListadosCentrosActividadesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,listadoscentrosactividadess,listadoscentrosactividadesParameterGeneral,listadoscentrosactividadesReturnGeneral);
+			this.connexion.commit();
+			return listadoscentrosactividadesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ListadosCentrosCostosReturnGeneral procesarAccionListadosCentrosCostoss(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ListadosCentrosCostos> listadoscentroscostoss,ListadosCentrosCostosParameterGeneral listadoscentroscostosParameterGeneral)throws Exception {
+		try {
+			ListadosCentrosCostosReturnGeneral listadoscentroscostosReturnGeneral=new ListadosCentrosCostosReturnGeneral();
+			listadoscentroscostosReturnGeneral=(ListadosCentrosCostosReturnGeneral)ListadosCentrosCostosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,listadoscentroscostoss,listadoscentroscostosParameterGeneral,listadoscentroscostosReturnGeneral);
+			return listadoscentroscostosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ListadosCentrosCostosReturnGeneral procesarAccionListadosCentrosCostossWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ListadosCentrosCostos> listadoscentroscostoss,ListadosCentrosCostosParameterGeneral listadoscentroscostosParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ListadosCentrosCostosReturnGeneral listadoscentroscostosReturnGeneral=new ListadosCentrosCostosReturnGeneral();
+			listadoscentroscostosReturnGeneral=(ListadosCentrosCostosReturnGeneral)ListadosCentrosCostosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,listadoscentroscostoss,listadoscentroscostosParameterGeneral,listadoscentroscostosReturnGeneral);
+			this.connexion.commit();
+			return listadoscentroscostosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ListadosPlanCuentasReturnGeneral procesarAccionListadosPlanCuentass(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ListadosPlanCuentas> listadosplancuentass,ListadosPlanCuentasParameterGeneral listadosplancuentasParameterGeneral)throws Exception {
+		try {
+			ListadosPlanCuentasReturnGeneral listadosplancuentasReturnGeneral=new ListadosPlanCuentasReturnGeneral();
+			listadosplancuentasReturnGeneral=(ListadosPlanCuentasReturnGeneral)ListadosPlanCuentasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,listadosplancuentass,listadosplancuentasParameterGeneral,listadosplancuentasReturnGeneral);
+			return listadosplancuentasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ListadosPlanCuentasReturnGeneral procesarAccionListadosPlanCuentassWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ListadosPlanCuentas> listadosplancuentass,ListadosPlanCuentasParameterGeneral listadosplancuentasParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ListadosPlanCuentasReturnGeneral listadosplancuentasReturnGeneral=new ListadosPlanCuentasReturnGeneral();
+			listadosplancuentasReturnGeneral=(ListadosPlanCuentasReturnGeneral)ListadosPlanCuentasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,listadosplancuentass,listadosplancuentasParameterGeneral,listadosplancuentasReturnGeneral);
+			this.connexion.commit();
+			return listadosplancuentasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public MayooresGeneralesReturnGeneral procesarAccionMayooresGeneraless(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<MayooresGenerales> mayooresgeneraless,MayooresGeneralesParameterGeneral mayooresgeneralesParameterGeneral)throws Exception {
+		try {
+			MayooresGeneralesReturnGeneral mayooresgeneralesReturnGeneral=new MayooresGeneralesReturnGeneral();
+			mayooresgeneralesReturnGeneral=(MayooresGeneralesReturnGeneral)MayooresGeneralesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,mayooresgeneraless,mayooresgeneralesParameterGeneral,mayooresgeneralesReturnGeneral);
+			return mayooresgeneralesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public MayooresGeneralesReturnGeneral procesarAccionMayooresGeneralessWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<MayooresGenerales> mayooresgeneraless,MayooresGeneralesParameterGeneral mayooresgeneralesParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			MayooresGeneralesReturnGeneral mayooresgeneralesReturnGeneral=new MayooresGeneralesReturnGeneral();
+			mayooresgeneralesReturnGeneral=(MayooresGeneralesReturnGeneral)MayooresGeneralesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,mayooresgeneraless,mayooresgeneralesParameterGeneral,mayooresgeneralesReturnGeneral);
+			this.connexion.commit();
+			return mayooresgeneralesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ProcesoAsientoInicialEjercicioReturnGeneral procesarAccionProcesoAsientoInicialEjercicios(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoAsientoInicialEjercicio> procesoasientoinicialejercicios,ProcesoAsientoInicialEjercicioParameterGeneral procesoasientoinicialejercicioParameterGeneral)throws Exception {
+		try {
+			ProcesoAsientoInicialEjercicioReturnGeneral procesoasientoinicialejercicioReturnGeneral=new ProcesoAsientoInicialEjercicioReturnGeneral();
+			procesoasientoinicialejercicioReturnGeneral=(ProcesoAsientoInicialEjercicioReturnGeneral)ProcesoAsientoInicialEjercicioLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesoasientoinicialejercicios,procesoasientoinicialejercicioParameterGeneral,procesoasientoinicialejercicioReturnGeneral);
+			return procesoasientoinicialejercicioReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ProcesoAsientoInicialEjercicioReturnGeneral procesarAccionProcesoAsientoInicialEjerciciosWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoAsientoInicialEjercicio> procesoasientoinicialejercicios,ProcesoAsientoInicialEjercicioParameterGeneral procesoasientoinicialejercicioParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ProcesoAsientoInicialEjercicioReturnGeneral procesoasientoinicialejercicioReturnGeneral=new ProcesoAsientoInicialEjercicioReturnGeneral();
+			procesoasientoinicialejercicioReturnGeneral=(ProcesoAsientoInicialEjercicioReturnGeneral)ProcesoAsientoInicialEjercicioLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesoasientoinicialejercicios,procesoasientoinicialejercicioParameterGeneral,procesoasientoinicialejercicioReturnGeneral);
+			this.connexion.commit();
+			return procesoasientoinicialejercicioReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ProcesoCierreEjercicioAnualReturnGeneral procesarAccionProcesoCierreEjercicioAnuals(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoCierreEjercicioAnual> procesocierreejercicioanuals,ProcesoCierreEjercicioAnualParameterGeneral procesocierreejercicioanualParameterGeneral)throws Exception {
+		try {
+			ProcesoCierreEjercicioAnualReturnGeneral procesocierreejercicioanualReturnGeneral=new ProcesoCierreEjercicioAnualReturnGeneral();
+			procesocierreejercicioanualReturnGeneral=(ProcesoCierreEjercicioAnualReturnGeneral)ProcesoCierreEjercicioAnualLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesocierreejercicioanuals,procesocierreejercicioanualParameterGeneral,procesocierreejercicioanualReturnGeneral);
+			return procesocierreejercicioanualReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ProcesoCierreEjercicioAnualReturnGeneral procesarAccionProcesoCierreEjercicioAnualsWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoCierreEjercicioAnual> procesocierreejercicioanuals,ProcesoCierreEjercicioAnualParameterGeneral procesocierreejercicioanualParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ProcesoCierreEjercicioAnualReturnGeneral procesocierreejercicioanualReturnGeneral=new ProcesoCierreEjercicioAnualReturnGeneral();
+			procesocierreejercicioanualReturnGeneral=(ProcesoCierreEjercicioAnualReturnGeneral)ProcesoCierreEjercicioAnualLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesocierreejercicioanuals,procesocierreejercicioanualParameterGeneral,procesocierreejercicioanualReturnGeneral);
+			this.connexion.commit();
+			return procesocierreejercicioanualReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ProcesoCierrePeriodoReturnGeneral procesarAccionProcesoCierrePeriodos(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoCierrePeriodo> procesocierreperiodos,ProcesoCierrePeriodoParameterGeneral procesocierreperiodoParameterGeneral)throws Exception {
+		try {
+			ProcesoCierrePeriodoReturnGeneral procesocierreperiodoReturnGeneral=new ProcesoCierrePeriodoReturnGeneral();
+			procesocierreperiodoReturnGeneral=(ProcesoCierrePeriodoReturnGeneral)ProcesoCierrePeriodoLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesocierreperiodos,procesocierreperiodoParameterGeneral,procesocierreperiodoReturnGeneral);
+			return procesocierreperiodoReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ProcesoCierrePeriodoReturnGeneral procesarAccionProcesoCierrePeriodosWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoCierrePeriodo> procesocierreperiodos,ProcesoCierrePeriodoParameterGeneral procesocierreperiodoParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ProcesoCierrePeriodoReturnGeneral procesocierreperiodoReturnGeneral=new ProcesoCierrePeriodoReturnGeneral();
+			procesocierreperiodoReturnGeneral=(ProcesoCierrePeriodoReturnGeneral)ProcesoCierrePeriodoLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesocierreperiodos,procesocierreperiodoParameterGeneral,procesocierreperiodoReturnGeneral);
+			this.connexion.commit();
+			return procesocierreperiodoReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ProcesoMayorizarDiarioReturnGeneral procesarAccionProcesoMayorizarDiarios(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoMayorizarDiario> procesomayorizardiarios,ProcesoMayorizarDiarioParameterGeneral procesomayorizardiarioParameterGeneral)throws Exception {
+		try {
+			ProcesoMayorizarDiarioReturnGeneral procesomayorizardiarioReturnGeneral=new ProcesoMayorizarDiarioReturnGeneral();
+			procesomayorizardiarioReturnGeneral=(ProcesoMayorizarDiarioReturnGeneral)ProcesoMayorizarDiarioLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesomayorizardiarios,procesomayorizardiarioParameterGeneral,procesomayorizardiarioReturnGeneral);
+			return procesomayorizardiarioReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ProcesoMayorizarDiarioReturnGeneral procesarAccionProcesoMayorizarDiariosWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoMayorizarDiario> procesomayorizardiarios,ProcesoMayorizarDiarioParameterGeneral procesomayorizardiarioParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ProcesoMayorizarDiarioReturnGeneral procesomayorizardiarioReturnGeneral=new ProcesoMayorizarDiarioReturnGeneral();
+			procesomayorizardiarioReturnGeneral=(ProcesoMayorizarDiarioReturnGeneral)ProcesoMayorizarDiarioLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesomayorizardiarios,procesomayorizardiarioParameterGeneral,procesomayorizardiarioReturnGeneral);
+			this.connexion.commit();
+			return procesomayorizardiarioReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ProcesoSincronizarSaldosReturnGeneral procesarAccionProcesoSincronizarSaldoss(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoSincronizarSaldos> procesosincronizarsaldoss,ProcesoSincronizarSaldosParameterGeneral procesosincronizarsaldosParameterGeneral)throws Exception {
+		try {
+			ProcesoSincronizarSaldosReturnGeneral procesosincronizarsaldosReturnGeneral=new ProcesoSincronizarSaldosReturnGeneral();
+			procesosincronizarsaldosReturnGeneral=(ProcesoSincronizarSaldosReturnGeneral)ProcesoSincronizarSaldosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesosincronizarsaldoss,procesosincronizarsaldosParameterGeneral,procesosincronizarsaldosReturnGeneral);
+			return procesosincronizarsaldosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ProcesoSincronizarSaldosReturnGeneral procesarAccionProcesoSincronizarSaldossWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoSincronizarSaldos> procesosincronizarsaldoss,ProcesoSincronizarSaldosParameterGeneral procesosincronizarsaldosParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ProcesoSincronizarSaldosReturnGeneral procesosincronizarsaldosReturnGeneral=new ProcesoSincronizarSaldosReturnGeneral();
+			procesosincronizarsaldosReturnGeneral=(ProcesoSincronizarSaldosReturnGeneral)ProcesoSincronizarSaldosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesosincronizarsaldoss,procesosincronizarsaldosParameterGeneral,procesosincronizarsaldosReturnGeneral);
+			this.connexion.commit();
+			return procesosincronizarsaldosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ProcesoTestReturnGeneral procesarAccionProcesoTests(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoTest> procesotests,ProcesoTestParameterGeneral procesotestParameterGeneral)throws Exception {
+		try {
+			ProcesoTestReturnGeneral procesotestReturnGeneral=new ProcesoTestReturnGeneral();
+			procesotestReturnGeneral=(ProcesoTestReturnGeneral)ProcesoTestLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesotests,procesotestParameterGeneral,procesotestReturnGeneral);
+			return procesotestReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ProcesoTestReturnGeneral procesarAccionProcesoTestsWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoTest> procesotests,ProcesoTestParameterGeneral procesotestParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ProcesoTestReturnGeneral procesotestReturnGeneral=new ProcesoTestReturnGeneral();
+			procesotestReturnGeneral=(ProcesoTestReturnGeneral)ProcesoTestLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesotests,procesotestParameterGeneral,procesotestReturnGeneral);
+			this.connexion.commit();
+			return procesotestReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ProcesoTotalizarSaldosReturnGeneral procesarAccionProcesoTotalizarSaldoss(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoTotalizarSaldos> procesototalizarsaldoss,ProcesoTotalizarSaldosParameterGeneral procesototalizarsaldosParameterGeneral)throws Exception {
+		try {
+			ProcesoTotalizarSaldosReturnGeneral procesototalizarsaldosReturnGeneral=new ProcesoTotalizarSaldosReturnGeneral();
+			procesototalizarsaldosReturnGeneral=(ProcesoTotalizarSaldosReturnGeneral)ProcesoTotalizarSaldosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesototalizarsaldoss,procesototalizarsaldosParameterGeneral,procesototalizarsaldosReturnGeneral);
+			return procesototalizarsaldosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ProcesoTotalizarSaldosReturnGeneral procesarAccionProcesoTotalizarSaldossWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ProcesoTotalizarSaldos> procesototalizarsaldoss,ProcesoTotalizarSaldosParameterGeneral procesototalizarsaldosParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ProcesoTotalizarSaldosReturnGeneral procesototalizarsaldosReturnGeneral=new ProcesoTotalizarSaldosReturnGeneral();
+			procesototalizarsaldosReturnGeneral=(ProcesoTotalizarSaldosReturnGeneral)ProcesoTotalizarSaldosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,procesototalizarsaldoss,procesototalizarsaldosParameterGeneral,procesototalizarsaldosReturnGeneral);
+			this.connexion.commit();
+			return procesototalizarsaldosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public ReporteTestReturnGeneral procesarAccionReporteTests(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ReporteTest> reportetests,ReporteTestParameterGeneral reportetestParameterGeneral)throws Exception {
+		try {
+			ReporteTestReturnGeneral reportetestReturnGeneral=new ReporteTestReturnGeneral();
+			reportetestReturnGeneral=(ReporteTestReturnGeneral)ReporteTestLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,reportetests,reportetestParameterGeneral,reportetestReturnGeneral);
+			return reportetestReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public ReporteTestReturnGeneral procesarAccionReporteTestsWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<ReporteTest> reportetests,ReporteTestParameterGeneral reportetestParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			ReporteTestReturnGeneral reportetestReturnGeneral=new ReporteTestReturnGeneral();
+			reportetestReturnGeneral=(ReporteTestReturnGeneral)ReporteTestLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,reportetests,reportetestParameterGeneral,reportetestReturnGeneral);
+			this.connexion.commit();
+			return reportetestReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public RetencionesPorPagarPorCuentasReturnGeneral procesarAccionRetencionesPorPagarPorCuentass(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<RetencionesPorPagarPorCuentas> retencionesporpagarporcuentass,RetencionesPorPagarPorCuentasParameterGeneral retencionesporpagarporcuentasParameterGeneral)throws Exception {
+		try {
+			RetencionesPorPagarPorCuentasReturnGeneral retencionesporpagarporcuentasReturnGeneral=new RetencionesPorPagarPorCuentasReturnGeneral();
+			retencionesporpagarporcuentasReturnGeneral=(RetencionesPorPagarPorCuentasReturnGeneral)RetencionesPorPagarPorCuentasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,retencionesporpagarporcuentass,retencionesporpagarporcuentasParameterGeneral,retencionesporpagarporcuentasReturnGeneral);
+			return retencionesporpagarporcuentasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public RetencionesPorPagarPorCuentasReturnGeneral procesarAccionRetencionesPorPagarPorCuentassWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<RetencionesPorPagarPorCuentas> retencionesporpagarporcuentass,RetencionesPorPagarPorCuentasParameterGeneral retencionesporpagarporcuentasParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			RetencionesPorPagarPorCuentasReturnGeneral retencionesporpagarporcuentasReturnGeneral=new RetencionesPorPagarPorCuentasReturnGeneral();
+			retencionesporpagarporcuentasReturnGeneral=(RetencionesPorPagarPorCuentasReturnGeneral)RetencionesPorPagarPorCuentasLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,retencionesporpagarporcuentass,retencionesporpagarporcuentasParameterGeneral,retencionesporpagarporcuentasReturnGeneral);
+			this.connexion.commit();
+			return retencionesporpagarporcuentasReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public RetencionesPorPagarPorRetencionesReturnGeneral procesarAccionRetencionesPorPagarPorRetencioness(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<RetencionesPorPagarPorRetenciones> retencionesporpagarporretencioness,RetencionesPorPagarPorRetencionesParameterGeneral retencionesporpagarporretencionesParameterGeneral)throws Exception {
+		try {
+			RetencionesPorPagarPorRetencionesReturnGeneral retencionesporpagarporretencionesReturnGeneral=new RetencionesPorPagarPorRetencionesReturnGeneral();
+			retencionesporpagarporretencionesReturnGeneral=(RetencionesPorPagarPorRetencionesReturnGeneral)RetencionesPorPagarPorRetencionesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,retencionesporpagarporretencioness,retencionesporpagarporretencionesParameterGeneral,retencionesporpagarporretencionesReturnGeneral);
+			return retencionesporpagarporretencionesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public RetencionesPorPagarPorRetencionesReturnGeneral procesarAccionRetencionesPorPagarPorRetencionessWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<RetencionesPorPagarPorRetenciones> retencionesporpagarporretencioness,RetencionesPorPagarPorRetencionesParameterGeneral retencionesporpagarporretencionesParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			RetencionesPorPagarPorRetencionesReturnGeneral retencionesporpagarporretencionesReturnGeneral=new RetencionesPorPagarPorRetencionesReturnGeneral();
+			retencionesporpagarporretencionesReturnGeneral=(RetencionesPorPagarPorRetencionesReturnGeneral)RetencionesPorPagarPorRetencionesLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,retencionesporpagarporretencioness,retencionesporpagarporretencionesParameterGeneral,retencionesporpagarporretencionesReturnGeneral);
+			this.connexion.commit();
+			return retencionesporpagarporretencionesReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public TotalSaldosReturnGeneral procesarAccionTotalSaldoss(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<TotalSaldos> totalsaldoss,TotalSaldosParameterGeneral totalsaldosParameterGeneral)throws Exception {
+		try {
+			TotalSaldosReturnGeneral totalsaldosReturnGeneral=new TotalSaldosReturnGeneral();
+			totalsaldosReturnGeneral=(TotalSaldosReturnGeneral)TotalSaldosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,totalsaldoss,totalsaldosParameterGeneral,totalsaldosReturnGeneral);
+			return totalsaldosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			;
+		}
+	}
+
+	public TotalSaldosReturnGeneral procesarAccionTotalSaldossWithConnection(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,String sProceso,List<TotalSaldos> totalsaldoss,TotalSaldosParameterGeneral totalsaldosParameterGeneral)throws Exception {
+		try {
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();
+			TotalSaldosReturnGeneral totalsaldosReturnGeneral=new TotalSaldosReturnGeneral();
+			totalsaldosReturnGeneral=(TotalSaldosReturnGeneral)TotalSaldosLogicAdditional.procesarAccions(parametroGeneralUsuario,modulo,opcion,usuario,this,sProceso,totalsaldoss,totalsaldosParameterGeneral,totalsaldosReturnGeneral);
+			this.connexion.commit();
+			return totalsaldosReturnGeneral;
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			this.connexion.close();
+		}
+	}
+
+	public Boolean ProcesarInformacionProcesoAsientoInicialEjercicio(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,List<ProcesoAsientoInicialEjercicio> procesoasientoinicialejercicios,String sTipoBusqueda,Long id_tipo_documentoBusquedaProcesoAsientoInicialEjercicio,Date fecha_inicioBusquedaProcesoAsientoInicialEjercicio,Date fecha_finBusquedaProcesoAsientoInicialEjercicio) throws Exception {
+		Boolean procesado=false;
+
+		try {
+			ProcesoAsientoInicialEjercicioLogicAdditional procesoasientoinicialejercicioLogicAdditional=new ProcesoAsientoInicialEjercicioLogicAdditional();
+
+			//this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+			//procesoasientoinicialejercicioLogicAdditional.setConnexion(this.connexion);
+
+			procesoasientoinicialejercicioLogicAdditional.ProcesarInformacionProcesoAsientoInicialEjercicio(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesoasientoinicialejercicios,sTipoBusqueda,id_tipo_documentoBusquedaProcesoAsientoInicialEjercicio,fecha_inicioBusquedaProcesoAsientoInicialEjercicio,fecha_finBusquedaProcesoAsientoInicialEjercicio);
+
+			//this.connexion.commit();
+		} catch(Exception e) {
+			//this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			//this.connexion.close();
+		}
+
+		return procesado;
+	}
+
+	public Boolean ProcesarInformacionProcesoCierreEjercicioAnual(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,List<ProcesoCierreEjercicioAnual> procesocierreejercicioanuals,String sTipoBusqueda,Long id_tipo_documentoBusquedaProcesoCierreEjercicioAnual,Date fechaBusquedaProcesoCierreEjercicioAnual) throws Exception {
+		Boolean procesado=false;
+
+		try {
+			ProcesoCierreEjercicioAnualLogicAdditional procesocierreejercicioanualLogicAdditional=new ProcesoCierreEjercicioAnualLogicAdditional();
+
+			//this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+			//procesocierreejercicioanualLogicAdditional.setConnexion(this.connexion);
+
+			procesocierreejercicioanualLogicAdditional.ProcesarInformacionProcesoCierreEjercicioAnual(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesocierreejercicioanuals,sTipoBusqueda,id_tipo_documentoBusquedaProcesoCierreEjercicioAnual,fechaBusquedaProcesoCierreEjercicioAnual);
+
+			//this.connexion.commit();
+		} catch(Exception e) {
+			//this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			//this.connexion.close();
+		}
+
+		return procesado;
+	}
+
+	public Boolean ProcesarInformacionProcesoCierrePeriodo(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,List<ProcesoCierrePeriodo> procesocierreperiodos,String sTipoBusqueda,Long id_ejercicioBusquedaPorIdEjercicioPorIdPeriodoPorEstado,Long id_periodoBusquedaPorIdEjercicioPorIdPeriodoPorEstado,Long id_estado_periodoBusquedaPorIdEjercicioPorIdPeriodoPorEstado) throws Exception {
+		Boolean procesado=false;
+
+		try {
+			ProcesoCierrePeriodoLogicAdditional procesocierreperiodoLogicAdditional=new ProcesoCierrePeriodoLogicAdditional();
+
+			//this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+			//procesocierreperiodoLogicAdditional.setConnexion(this.connexion);
+
+			procesocierreperiodoLogicAdditional.ProcesarInformacionProcesoCierrePeriodo(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesocierreperiodos,sTipoBusqueda,id_ejercicioBusquedaPorIdEjercicioPorIdPeriodoPorEstado,id_periodoBusquedaPorIdEjercicioPorIdPeriodoPorEstado,id_estado_periodoBusquedaPorIdEjercicioPorIdPeriodoPorEstado);
+
+			//this.connexion.commit();
+		} catch(Exception e) {
+			//this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			//this.connexion.close();
+		}
+
+		return procesado;
+	}
+
+	public Boolean ProcesarInformacionProcesoMayorizarDiario(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,List<ProcesoMayorizarDiario> procesomayorizardiarios,String sTipoBusqueda,String codigoBusquedaProcesoMayorizarDiario,Long id_tipo_movimientoBusquedaProcesoMayorizarDiario,Date fecha_inicioBusquedaProcesoMayorizarDiario,Date fecha_finBusquedaProcesoMayorizarDiario) throws Exception {
+		Boolean procesado=false;
+
+		try {
+			ProcesoMayorizarDiarioLogicAdditional procesomayorizardiarioLogicAdditional=new ProcesoMayorizarDiarioLogicAdditional();
+
+			//this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+			//procesomayorizardiarioLogicAdditional.setConnexion(this.connexion);
+
+			procesomayorizardiarioLogicAdditional.ProcesarInformacionProcesoMayorizarDiario(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesomayorizardiarios,sTipoBusqueda,codigoBusquedaProcesoMayorizarDiario,id_tipo_movimientoBusquedaProcesoMayorizarDiario,fecha_inicioBusquedaProcesoMayorizarDiario,fecha_finBusquedaProcesoMayorizarDiario);
+
+			//this.connexion.commit();
+		} catch(Exception e) {
+			//this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			//this.connexion.close();
+		}
+
+		return procesado;
+	}
+
+	public Boolean ProcesarInformacionProcesoSincronizarSaldos(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,List<ProcesoSincronizarSaldos> procesosincronizarsaldoss,String sTipoBusqueda,Long id_ejercicioBusquedaProcesoSincronizarSaldos,Long id_periodoBusquedaProcesoSincronizarSaldos) throws Exception {
+		Boolean procesado=false;
+
+		try {
+			ProcesoSincronizarSaldosLogicAdditional procesosincronizarsaldosLogicAdditional=new ProcesoSincronizarSaldosLogicAdditional();
+
+			//this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+			//procesosincronizarsaldosLogicAdditional.setConnexion(this.connexion);
+
+			procesosincronizarsaldosLogicAdditional.ProcesarInformacionProcesoSincronizarSaldos(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesosincronizarsaldoss,sTipoBusqueda,id_ejercicioBusquedaProcesoSincronizarSaldos,id_periodoBusquedaProcesoSincronizarSaldos);
+
+			//this.connexion.commit();
+		} catch(Exception e) {
+			//this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			//this.connexion.close();
+		}
+
+		return procesado;
+	}
+
+	public Boolean ProcesarInformacionProcesoTest(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,List<ProcesoTest> procesotests,String sTipoBusqueda,Long id_empresaBusquedaPorIdEmpresaPorIdModulo,Long id_moduloBusquedaPorIdEmpresaPorIdModulo,String nombreBusquedaPorIdEmpresaPorIdModulo) throws Exception {
+		Boolean procesado=false;
+
+		try {
+			ProcesoTestLogicAdditional procesotestLogicAdditional=new ProcesoTestLogicAdditional();
+
+			//this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+			//procesotestLogicAdditional.setConnexion(this.connexion);
+
+			procesotestLogicAdditional.ProcesarInformacionProcesoTest(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesotests,sTipoBusqueda,id_empresaBusquedaPorIdEmpresaPorIdModulo,id_moduloBusquedaPorIdEmpresaPorIdModulo,nombreBusquedaPorIdEmpresaPorIdModulo);
+
+			//this.connexion.commit();
+		} catch(Exception e) {
+			//this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			//this.connexion.close();
+		}
+
+		return procesado;
+	}
+
+	public Boolean ProcesarInformacionProcesoTotalizarSaldos(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,List<ProcesoTotalizarSaldos> procesototalizarsaldoss,String sTipoBusqueda,Long id_ejercicioBusquedaPorEjercicioPorPeriodo,Long id_periodoBusquedaPorEjercicioPorPeriodo) throws Exception {
+		Boolean procesado=false;
+
+		try {
+			ProcesoTotalizarSaldosLogicAdditional procesototalizarsaldosLogicAdditional=new ProcesoTotalizarSaldosLogicAdditional();
+
+			//this.connexion=this.connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+			//procesototalizarsaldosLogicAdditional.setConnexion(this.connexion);
+
+			procesototalizarsaldosLogicAdditional.ProcesarInformacionProcesoTotalizarSaldos(parametroGeneralUsuario,moduloActual,opcionActual,usuarioActual,procesototalizarsaldoss,sTipoBusqueda,id_ejercicioBusquedaPorEjercicioPorPeriodo,id_periodoBusquedaPorEjercicioPorPeriodo);
+
+			//this.connexion.commit();
+		} catch(Exception e) {
+			//this.connexion.rollback();
+			Funciones.manageException(logger,e);
+			throw e;
+		} finally {
+			//this.connexion.close();
+		}
+
+		return procesado;
+	}
+
+	//CONTROL_INICIO
+	public  ContabilidadLogicAdditionalRespaldo_2014_07_14()throws Exception {
+		super();
+    }
+	
+	public static void checkContabilidadToSave(Contabilidad contabilidad,DatosCliente datosCliente,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_1
+	}
+	
+	public static void checkContabilidadToSave(Contabilidad contabilidad,DatosCliente datosCliente,Connexion connexion,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_2
+	}
+	
+	public static void checkContabilidadToSaveAfter(Contabilidad contabilidad,DatosCliente datosCliente,Connexion connexion,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_3
+	}
+	
+	public static void checkContabilidadToSaves(List<Contabilidad> contabilidads,DatosCliente datosCliente,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_4
+	}
+	
+	public static void checkContabilidadToSaves(List<Contabilidad> contabilidads,DatosCliente datosCliente,Connexion connexion,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_5
+	}
+	
+	public static void checkContabilidadToSavesAfter(List<Contabilidad> contabilidads,DatosCliente datosCliente,Connexion connexion,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_6
+	}
+	
+	public static void checkContabilidadToGet(Contabilidad contabilidad,DatosCliente datosCliente,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_7
+	}
+	
+	public static void checkContabilidadToGets(List<Contabilidad> contabilidads,DatosCliente datosCliente,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_8
+	}
+	
+	public static void updateContabilidadToSave(Contabilidad contabilidad,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_9
+	}		
+						
+	public static void updateContabilidadToGet(Contabilidad contabilidad,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_10
+	}	
+	
+	public static void updateJSONObjectContabilidadActions(String sTipoJsonResponse,JSONObject jsonObjectContabilidad,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_11
+	}
+	
+	public static String getJsonContabilidadDataTable(String sTipoJsonResponse,Contabilidad contabilidad,ArrayList<DatoGeneral> arrDatoGeneral) {
+		String sJsonDataTable="";
+		
+		//CONTROL_12
+		
+		return sJsonDataTable;
+	}
+	
+	public static String getJsonContabilidadsDataTable(String sTipoJsonResponse,List<Contabilidad> contabilidads,ArrayList<DatoGeneral> arrDatoGeneral) {
+		String sJsonDataTable="";
+		
+		//CONTROL_13
+		
+		return sJsonDataTable;
+	}
+	
+	public static JSONArray getJsonArrayContabilidadColumnsDefaultTable(String sTipoJsonResponse,ArrayList<DatoGeneral> arrDatoGeneral)throws Exception {	
+		JSONArray jsonArrayContabilidadsColumns = new JSONArray();
+		
+		//CONTROL_14
+		
+		return jsonArrayContabilidadsColumns;
+	}
+	
+	public static void updateJSONArrayContabilidadActionsColumns(String sTipoJsonResponse,JSONArray jsonObjectContabilidad,ArrayList<DatoGeneral> arrDatoGeneral) {	
+		//CONTROL_15
+	}
+	
+	//PARA ACCIONES ADDITIONAL
+	public Boolean ProcesarAccion(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcionActual,Usuario usuarioActual,String sProceso,List<Contabilidad> contabilidads) throws Exception  {
+		//CONTROL_16
+		Boolean esProcesado=true;
+		
+		try {	
+			this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+		
+			this.connexion.commit();
+			
+		} catch(Exception e) {
+			this.connexion.rollback();			
+			
+			Funciones.manageException(logger,e);
+			throw e;
+			
+      	} finally {
+      		this.connexion.close();			
+		}
+		
+		return esProcesado;
+	}		
+	
+	//PARA ACCIONES NORMALES		
+	public static GeneralEntityParameterReturnGeneral procesarAccions(ParametroGeneralUsuario parametroGeneralUsuario,Modulo modulo,Opcion opcion,Usuario usuario,GeneralEntityLogic generalEntityLogic,String sProceso,Object objects,GeneralEntityParameterGeneral generalEntityParameterGeneral,GeneralEntityParameterReturnGeneral generalEntityReturnGeneral)throws Exception {				
+		//CONTROL_17
+		
+		 try {	
+			
+			
+			//GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+				
+			
+			return generalEntityReturnGeneral;
+			
+		} catch(Exception e) {
+			Funciones.manageException(logger,e);
+			throw e;
+			
+      	} finally {
+			;
+		}
+	}
+	
+	//ACCION TABLA PROCESO DESDE BUSQUEDA
+	public static GeneralEntityParameterReturnGeneral ProcesarAccion(ParametroGeneralUsuario parametroGeneralUsuario,Modulo moduloActual,Opcion opcion,Usuario usuario,GeneralEntityLogic generalEntityLogic,String sProceso,Object objects,GeneralEntityParameterGeneral generalEntityParameterGeneral,GeneralEntityParameterReturnGeneral generalEntityReturnGeneral) throws Exception  {
+		//CONTROL_18
+		//GeneralEntityParameterReturnGeneral generalEntityReturnGeneral=new GeneralEntityParameterReturnGeneral();
+			
+		try {	
+			//this.connexion=connexion.getNewConnexion(this.connexionType,this.parameterDbType,this.entityManagerFactory);connexion.begin();			
+		
+			//this.connexion.commit();
+			
+		} catch(Exception e) {
+			//this.connexion.rollback();			
+			
+			Funciones.manageException(logger,e);
+			throw e;
+			
+      	} finally {
+      		//this.connexion.close();			
+		}
+		
+		return generalEntityReturnGeneral;
+	}
+	
+	
+	
+	//CONTROL_FUNCION1
+	
+	
+	
+	
+	//CONTROL_FUNCION2
+}
+

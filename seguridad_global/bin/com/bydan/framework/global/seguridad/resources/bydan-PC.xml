@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<Global>
+     <Licencia>
+     	<ClaveSistema>2de763b1483e8323134b383058738a856cd89189</ClaveSistema>
+     	<FechaCaduca>.)=,(=.(,=</FechaCaduca>
+     	<NombrePc>bydan-PC</NombrePc>
+     	<MacAddress>C0-A8-01-02</MacAddress>
+     	<IpPc>192.168.1.2</IpPc>
+        <UsuarioPc>informix</UsuarioPc>                            
+        <idUsuarioPrincipal>1</idUsuarioPrincipal>        
+        <EsClienteWeb>false</EsClienteWeb>
+     </Licencia>
+</Global>

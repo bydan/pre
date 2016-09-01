@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<persistence xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd"
+             version="1.0" xmlns="http://java.sun.com/xml/ns/persistence">
+   <!--NOTA: TOMCAT: Se puede utilizar sin datasource, es decir igual que con consola -->
+   <!--CONSOLA: transaction-type=RESOURCE_LOCAL, transaction-type=RESOURCE_LOCAL, JBOSS: transaction-type=JTA -->
+    <persistence-unit name="PersistenceUnitSeguridad" transaction-type="JTA">   
+        <!--CONSOLA: comentar, TOMCAT:utilizar(RESOURCE_LOCAL) y valor=java:/java:/comp/env/EnvioMailDataSource, JBOSS: utilizar pero quitar non y valor=java:/EnvioMailDataSource - -->
+        <!--<non-jta-data-source>java:/comp/env/SeguridadDataSource</non-jta-data-source>-->
+        <jta-data-source>java:jdbc/SeguridadDataSource</jta-data-source>
+        <jar-file>enviomails-ejb.jar/seguridad-1.1.1.jar</jar-file>
+        <class>com.bydan.seguridad.business.entity.Accion</class> 
+  		<class>com.bydan.seguridad.business.entity.Campo</class> 
+  		<class>com.bydan.seguridad.business.entity.Opcion</class> 
+  		<class>com.bydan.seguridad.business.entity.Perfil</class> 
+  		<class>com.bydan.seguridad.business.entity.PerfilAccion</class> 
+  		<class>com.bydan.seguridad.business.entity.PerfilCampo</class> 
+  		<class>com.bydan.seguridad.business.entity.PerfilOpcion</class> 
+  		<class>com.bydan.seguridad.business.entity.PerfilUsuario</class> 
+  		<class>com.bydan.seguridad.business.entity.Sistema</class> 
+  		<class>com.bydan.seguridad.business.entity.Usuario</class>  
+       <properties>
+       <!-- MYSQL,DB2 org.hibernate.dialect.MySQLDialect,DB2400Dialect,org.hibernate.dialect.PostgreSQLDialect-->
+      	<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      	 <!--Solo para JBoss-->
+      	<property name="hibernate.transaction.manager_lookup_class" value="org.hibernate.transaction.JBossTransactionManagerLookup"/>    	
+      	<property name="hibernate.show_sql" value="true"/>
+      	<property name="hibernate.format_sql" value="true"/> 
+       </properties>    	
+    </persistence-unit> 
+</persistence>
+
+
+  <!-- RESOURCE_LOCAL,JTA 		(JBoss) java:/EnvioMailDataSource   (tomcat)java:/comp/env/EnvioMailDataSource-->
+ 
+ <!-- <non-jta-data-source>java:/EnvioMailDataSource</non-jta-data-source> -->
+      
+      <!--				   
+      <properties>
+       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
+        <property name="hibernate.connection.password" value="root"/>
+        <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/enviomails_dbo"/>
+        <property name="hibernate.connection.username" value="root"/>
+        <property name="hibernate.default_schema" value="enviomails_dbo"/>
+      </properties>
+        -->

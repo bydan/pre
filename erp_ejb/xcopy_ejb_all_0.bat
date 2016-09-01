@@ -1,0 +1,3 @@
+xcopy "%cd%\src_%1\com\bydan\erp\%1\business\entity" "F:\l\proyectos\2013\source\erp\erp_desktop\src_%1\com\bydan\erp\%1\business\entity" /e /i /y
+xcopy "%cd%\src_%1\com\bydan\erp\%1\service\ejb\interfaces" "F:\l\proyectos\2013\source\erp\erp_desktop\src_%1\com\bydan\erp\%1\service\ejb\interfaces" /e /i /y
+xcopy "%cd%\src_%1\com\bydan\erp\%1\util" "F:\l\proyectos\2013\source\erp\erp_desktop\src_%1\com\bydan\erp\%1\util" /e /i /y
